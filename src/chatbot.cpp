@@ -45,6 +45,71 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+//copy constructor
+ChatBot::ChatBot(const ChatBot &source){
+    _image = new wxBitmap(*source._image);
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    std::cout << "Chat Bot Copy Constructor Copy" << &source << " to" << this << std::endl;
+}
+
+//Assignment operator constructor
+ChatBot &ChatBot::operator=(const ChatBot &source){
+    if (this == &source){
+        return *this;
+    }
+
+    if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
+    {
+        delete _image;
+        _image = NULL;
+    }
+    _image = new wxBitmap(*source._image);
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    std::cout << "Chat Bot Assignment Constructor Assign" << &source << " to" << this << std::endl;
+    return *this;
+}
+
+//Move Constructor
+ChatBot::ChatBot(ChatBot &&source){
+    _image = source._image;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    source._image = NULL;
+    source._chatLogic = nullptr;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    std::cout << "Chat Bot Move Constructor move" << &source << " to" << this << std::endl;
+}
+
+ChatBot &ChatBot::operator=(ChatBot &&source){
+    if(this==&source){
+        return *this;
+    }
+    if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
+    {
+        delete _image;
+        _image = NULL;
+    }
+    _image = source._image;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    source._image = NULL;
+    source._chatLogic = nullptr;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    std::cout << "Chat Bot Move Assignment move" << &source << " to" << this << std::endl;
+}
+
 ////
 //// EOF STUDENT CODE
 
