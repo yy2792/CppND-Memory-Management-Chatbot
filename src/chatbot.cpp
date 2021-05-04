@@ -108,6 +108,7 @@ ChatBot &ChatBot::operator=(ChatBot &&source){
     source._currentNode = nullptr;
     source._rootNode = nullptr;
     std::cout << "Chat Bot Move Assignment move" << &source << " to" << this << std::endl;
+    return *this;
 }
 
 ////
